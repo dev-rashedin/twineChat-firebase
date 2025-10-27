@@ -7,7 +7,12 @@
   "scripts": {
     "build": "tsc",
     "start": "tsx watch src/server.ts",
-    "start:prod": "node dist/server.js"
+    "start:prod": "node dist/server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+    "prettier:fix": "prettier --write \"./src/**/*.+(js|ts|json)\"",
+    "postinstall": "simple-git-hooks"
   },
   "keywords": [],
   "license": "ISC",
@@ -16,14 +21,31 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-error-toolkit": "^1.2.0",
-    "http-status-toolkit": "^2.0.0"
+    "http-status-toolkit": "^2.0.0",
+    "mongoose": "^8.19.2"
   },
   "devDependencies": {
+    "@eslint/js": "9.34.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.2.1",
+    "eslint": "9.34.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.4",
+    "globals": "16.3.0",
+    "lint-staged": "^16.2.6",
+    "simple-git-hooks": "^2.13.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "8.41.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged -- --concurrent false"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ]
   }
 }
